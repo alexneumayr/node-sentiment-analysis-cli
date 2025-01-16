@@ -15,11 +15,25 @@ function outputFileContent(fileName) {
 }
 
 const regex = new RegExp('[.]txt$');
+let stringToAnalyze;
+
+if (regex.test(userInput)) {
+  try {
+    stringToAnalyze = outputFileContent(userInput);
+  } catch (error) {
+    console.log(
+      'The following error occurred while processing the text file:\n',
+      error,
+    );
+  }
+} else {
+  stringToAnalyze = userInput;
+}
 
 const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini',
   store: true,
-  messages: [{ role: 'user', content: userInput }],
+  messages: [{ role: 'user', content: stringToAnalyze }],
   response_format: {
     type: 'json_schema',
     json_schema: {
