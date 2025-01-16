@@ -104,21 +104,23 @@ const completion = openai.chat.completions.create({
 });
 
 // Execute gpt request
-completion.then((result) => {
-  const responseContentJSON = JSON.parse(result.choices[0].message.content); // Save parsed JSON object
-  const sentimentsArray = responseContentJSON.sentiments;
-  const emotionsArray = responseContentJSON.emotions;
-  // Output confidence rating
-  console.log(
-    `Your text has the following sentiment (with ${responseContentJSON.confidenceRating}% certainty):\n`,
-  );
-  // Loop through the sentiments array and output name and percentage
-  sentimentsArray.forEach((sentiment) =>
-    console.log(`- ${sentiment.percentage}% ${sentiment.name}`),
-  );
-  // Loop through the emotions array and output name and percentage
-  console.log('\nThe emotions found in the text are:\n');
-  emotionsArray.forEach((emotion) =>
-    console.log(`- ${emotion.name} (${emotion.percentage}%)`),
-  );
-});
+completion
+  .then((result) => {
+    const responseContentJSON = JSON.parse(result.choices[0].message.content); // Save parsed JSON object
+    const sentimentsArray = responseContentJSON.sentiments;
+    const emotionsArray = responseContentJSON.emotions;
+    // Output confidence rating
+    console.log(
+      `Your text has the following sentiment (with ${responseContentJSON.confidenceRating}% certainty):\n`,
+    );
+    // Loop through the sentiments array and output name and percentage
+    sentimentsArray.forEach((sentiment) =>
+      console.log(`- ${sentiment.percentage}% ${sentiment.name}`),
+    );
+    // Loop through the emotions array and output name and percentage
+    console.log('\nThe emotions found in the text are:\n');
+    emotionsArray.forEach((emotion) =>
+      console.log(`- ${emotion.name} (${emotion.percentage}%)`),
+    );
+  })
+  .catch((error) => console.log(error));
