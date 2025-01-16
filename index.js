@@ -8,23 +8,44 @@ const openai = new OpenAI({
 const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini',
   store: true,
-  messages: [{ role: 'user', content: 'awesome' }],
+  messages: [{ role: 'user', content: 'good and bad' }],
   response_format: {
     type: 'json_schema',
     json_schema: {
-      name: 'text_analysis',
+      name: 'sentiment_analysis',
       schema: {
         type: 'object',
         properties: {
           confidenceRating: {
             type: 'number',
             description:
-              'The percentage of how certain the AI is that its answer is correct.',
+              'The percentage of how certain the AI is that it correctly detected the Sentiments.',
+          },
+          sentiments: {
+            type: 'array',
+            description:
+              'Array containing all detected sentiments in descending percentage.',
+            items: {
+              type: 'object',
+              properties: {
+                sentiment: {
+                  type: 'string',
+                  enum: ['positive', 'negative', 'neutral'],
+                  description: 'The sentiment of the text.',
+                },
+                percentage: {
+                  type: 'number',
+                  description: 'The percentage associated with the sentiment.',
+                },
+              },
+              required: ['sentiment', 'percentage'],
+              additionalProperties: false,
+            },
           },
           emotions: {
             type: 'array',
             description:
-              'A list of detected moods/sentiments in descending order of percentage.',
+              'Array containing all detected emotions in descending percentage.',
             items: {
               type: 'object',
               properties: {
@@ -36,7 +57,7 @@ const completion = openai.chat.completions.create({
                 percentage: {
                   type: 'number',
                   description:
-                    'The percentage indicating the strength of the emotion',
+                    'The percentage indicating the strength of the emotion.',
                 },
               },
               required: ['name', 'percentage'],
@@ -44,7 +65,7 @@ const completion = openai.chat.completions.create({
             },
           },
         },
-        required: ['confidenceRating', 'emotions'],
+        required: ['confidenceRating', 'sentiments', 'emotions'],
         additionalProperties: false,
       },
       strict: true,
@@ -55,8 +76,9 @@ const completion = openai.chat.completions.create({
 completion.then((result) => {
   const responseContentJSON = JSON.parse(result.choices[0].message.content);
   const confidenceRating = responseContentJSON.confidenceRating;
-  const emotionsArray = responseContentJSON.emotions;
+  const emotionsArray = responseContentJSON.emotions; /*
   console.log(
     `Your text has the following sentiment (with ${responseContentJSON.confidenceRating}% certainty):\n`,
-  );
+  ); */
+  console.log(responseContentJSON);
 });
