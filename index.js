@@ -5,10 +5,12 @@ const openai = new OpenAI({
     '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',
 });
 
+const userInput = process.argv.slice(2).join(' ');
+
 const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini',
   store: true,
-  messages: [{ role: 'user', content: process.argv[2] }],
+  messages: [{ role: 'user', content: userInput }],
   response_format: {
     type: 'json_schema',
     json_schema: {
