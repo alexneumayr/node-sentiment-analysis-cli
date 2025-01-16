@@ -13,13 +13,11 @@ Word is passed as an argument:
 node index.js awesome
 Your text has the following sentiment (with 95% certainty):
 
-- 90% positive
-- 10% neutral
+- 100% positive
 
 The emotions found in the text are:
 
-- Joy (85%)
-- Surprise (10%)
+- Joy (100%)
 ```
 
 Also multiple words are possible:
@@ -49,12 +47,13 @@ Textfile is passed as an argument:
 node index.js holiday.txt
 Your text has the following sentiment (with 95% certainty):
 
-- 95% positive
-- 5% neutral
+- 85% positive
+- 15% neutral
 
 The emotions found in the text are:
 
-- Joy (90%)
-- Excitement (80%)
-- Satisfaction (75%)
+- Joy (60%)
+- Excitement (25%)
+- Satisfaction (10%)
+- Contentment (5%)
 ```
