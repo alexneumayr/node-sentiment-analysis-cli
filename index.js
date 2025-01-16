@@ -46,8 +46,7 @@ const completion = openai.chat.completions.create({
           },
           emotions: {
             type: 'array',
-            description:
-              'Array containing all detected emotions in descending percentage.',
+            description: 'Array containing all detected emotions.',
             items: {
               type: 'object',
               properties: {
@@ -85,5 +84,9 @@ completion.then((result) => {
   );
   sentimentsArray.forEach((sentiment) =>
     console.log(`- ${sentiment.percentage}% ${sentiment.name}`),
+  );
+  console.log('\nThe emotions found in the text are:\n');
+  emotionsArray.forEach((emotion) =>
+    console.log(`- ${emotion.name} (${emotion.percentage}%)`),
   );
 });
