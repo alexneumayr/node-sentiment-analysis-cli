@@ -18,20 +18,27 @@ function outputFileContent(fileName) {
   return fileAsText;
 }
 
-// Check if the argument ends with ".txt"
-if (regex.test(userInput)) {
-  try {
-    stringToAnalyze = outputFileContent(userInput); // If it ends with ".txt" save file content to stringToAnalyze
-  } catch (error) {
-    // Display error message if there was a problem processing the file
-    console.log(
-      'The following error occurred while processing the text file:\n',
-      error,
-    );
+// Checks if there is at least one argument
+if (userInput) {
+  // Check if the argument ends with ".txt"
+  if (regex.test(userInput)) {
+    try {
+      stringToAnalyze = outputFileContent(userInput); // If it ends with ".txt" save file content to stringToAnalyze
+    } catch (error) {
+      // Display error message if there was a problem processing the file
+      console.log(
+        'The following error occurred while processing the text file:\n',
+        error,
+      );
+    }
+  } else {
+    // If the argument doesn't end with ".txt" just assign it to stringToAnalyze
+    stringToAnalyze = userInput;
   }
 } else {
-  // If the argument doesn't end with ".txt" just assign it to stringToAnalyze
-  stringToAnalyze = userInput;
+  // If there is no argument output a message and exit the application
+  console.log('Error: Please use at least one word as an argument');
+  process.exit(0);
 }
 
 // Create the gpt request and save it to completion
