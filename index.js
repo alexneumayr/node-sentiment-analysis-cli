@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -6,6 +7,12 @@ const openai = new OpenAI({
 });
 
 const userInput = process.argv.slice(2).join(' ');
+
+function outputFileContent(fileName) {
+  const fileInBuffer = fs.readFileSync(fileName);
+  const fileAsText = fileInBuffer.toString();
+  return fileAsText;
+}
 
 const regex = new RegExp('[.]txt$');
 
