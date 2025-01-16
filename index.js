@@ -8,7 +8,7 @@ const openai = new OpenAI({
 const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini',
   store: true,
-  messages: [{ role: 'user', content: 'good and bad' }],
+  messages: [{ role: 'user', content: 'awesome' }],
   response_format: {
     type: 'json_schema',
     json_schema: {
@@ -28,7 +28,7 @@ const completion = openai.chat.completions.create({
             items: {
               type: 'object',
               properties: {
-                sentiment: {
+                name: {
                   type: 'string',
                   enum: ['positive', 'negative', 'neutral'],
                   description: 'The sentiment of the text.',
@@ -38,7 +38,7 @@ const completion = openai.chat.completions.create({
                   description: 'The percentage associated with the sentiment.',
                 },
               },
-              required: ['sentiment', 'percentage'],
+              required: ['name', 'percentage'],
               additionalProperties: false,
             },
           },
@@ -76,9 +76,12 @@ const completion = openai.chat.completions.create({
 completion.then((result) => {
   const responseContentJSON = JSON.parse(result.choices[0].message.content);
   const confidenceRating = responseContentJSON.confidenceRating;
-  const emotionsArray = responseContentJSON.emotions; /*
+  const sentimentsArray = responseContentJSON.sentiments;
+  const emotionsArray = responseContentJSON.emotions;
   console.log(
     `Your text has the following sentiment (with ${responseContentJSON.confidenceRating}% certainty):\n`,
-  ); */
-  console.log(responseContentJSON);
+  );
+  sentimentsArray.forEach((sentiment) =>
+    console.log(`- ${sentiment.percentage}% ${sentiment.name}`),
+  );
 });
