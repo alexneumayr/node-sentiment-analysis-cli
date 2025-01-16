@@ -8,7 +8,7 @@ const openai = new OpenAI({
 const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini',
   store: true,
-  messages: [{ role: 'user', content: 'awesome' }],
+  messages: [{ role: 'user', content: process.argv[2] }],
   response_format: {
     type: 'json_schema',
     json_schema: {
