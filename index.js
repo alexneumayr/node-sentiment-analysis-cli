@@ -36,10 +36,10 @@ if (regex.test(userInput)) {
 
 // Create the gpt request and save it to completion
 const completion = openai.chat.completions.create({
-  model: 'gpt-4o-mini', // use gpt-4o-mini
-  messages: [{ role: 'user', content: stringToAnalyze }], // use stringToAnalyze as the content
+  model: 'gpt-4o-mini', // Use gpt-4o-mini
+  messages: [{ role: 'user', content: stringToAnalyze }], // Use stringToAnalyze as the content
   response_format: {
-    // specify response scheme
+    // Specify response scheme
     type: 'json_schema',
     json_schema: {
       name: 'sentiment_analysis',
