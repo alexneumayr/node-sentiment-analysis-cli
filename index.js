@@ -60,7 +60,8 @@ const completion = openai.chat.completions.create({
                 },
                 percentage: {
                   type: 'number',
-                  description: 'The percentage associated with the sentiment.',
+                  description:
+                    'The percentage associated with the sentiment. The percentage of all sentiments combined must equal 100%',
                 },
               },
               required: ['name', 'percentage'],
@@ -81,7 +82,7 @@ const completion = openai.chat.completions.create({
                 percentage: {
                   type: 'number',
                   description:
-                    'The percentage indicating the strength of the emotion.',
+                    'The percentage indicating the strength of the emotion. The percentage of all emotions combined must equal 100%',
                 },
               },
               required: ['name', 'percentage'],
