@@ -47,7 +47,7 @@ const completion = openai.chat.completions.create({
   model: 'gpt-4o-mini', // Use gpt-4o-mini
   messages: [{ role: 'user', content: stringToAnalyze }], // Use stringToAnalyze as the content
   response_format: {
-    // Specify response scheme
+    // Specify response schema (used OpenAI's JSON schema generator for this)
     type: 'json_schema',
     json_schema: {
       name: 'sentiment_analysis',
